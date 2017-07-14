@@ -10,7 +10,11 @@ import java.io.Serializable;
 @Entity
 public class Nationality implements Serializable {
 
+    // constants
+
     public static final String GENERATOR = "NationalityGenerator";
+
+    // fields
 
     @TableGenerator(
             name = Nationality.GENERATOR,
@@ -24,7 +28,17 @@ public class Nationality implements Serializable {
     private String name;
     private String flagPath;
 
+    // constructors
+
     public Nationality(){}
+
+    public Nationality(NationalityBuilder builder){
+        this.id = builder.id;
+        this.name = builder.name;
+        this.flagPath = builder.flagPath;
+    }
+
+    // getters & setters
 
     public int getId() {
         return id;
@@ -48,5 +62,35 @@ public class Nationality implements Serializable {
 
     public void setFlagPath(String flagPath) {
         this.flagPath = flagPath;
+    }
+
+    // builder
+
+    public static class NationalityBuilder{
+
+        private int id;
+        private String name;
+        private String flagPath;
+
+        public NationalityBuilder(){}
+
+        public NationalityBuilder id(int id){
+            this.id = id;
+            return this;
+        }
+
+        public NationalityBuilder name(String name){
+            this.name = name;
+            return this;
+        }
+
+        public NationalityBuilder flagPath(String flagPath){
+            this.flagPath = flagPath;
+            return this;
+        }
+
+        public Nationality build(){
+            return new Nationality(this);
+        }
     }
 }

@@ -12,6 +12,8 @@ public class Team implements Serializable {
 
     public static final String GENERATOR = "TeamGenerator";
 
+    // fields
+
     @TableGenerator(
             name = Team.GENERATOR,
             allocationSize = 1,
@@ -23,6 +25,18 @@ public class Team implements Serializable {
 
     private String name;
     private String logoPath;
+
+    // constructors
+
+    public Team(){}
+
+    public Team(TeamBuilder builder){
+        this.id = builder.id;
+        this.name = builder.name;
+        this.logoPath = builder.logoPath;
+    }
+
+    // getters & setters
 
     public int getId() {
         return id;
@@ -46,5 +60,35 @@ public class Team implements Serializable {
 
     public void setLogoPath(String logoPath) {
         this.logoPath = logoPath;
+    }
+
+    // builder
+
+    public static class TeamBuilder{
+
+        private int id;
+        private String name;
+        private String logoPath;
+
+        public TeamBuilder(){}
+
+        public TeamBuilder id(int id){
+            this.id = id;
+            return this;
+        }
+
+        public TeamBuilder name(String name){
+            this.name = name;
+            return this;
+        }
+
+        public TeamBuilder logoPath(String logoPath){
+            this.logoPath = logoPath;
+            return this;
+        }
+
+        public Team build(){
+            return new Team(this);
+        }
     }
 }

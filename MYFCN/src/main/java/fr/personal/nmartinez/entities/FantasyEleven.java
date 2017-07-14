@@ -10,7 +10,11 @@ import java.util.List;
 @Entity
 public class FantasyEleven {
 
+    // constants
+
     public static final String GENERATOR = "FantasyElevenGenerator";
+
+    // fields
 
     @TableGenerator(
             name = FantasyEleven.GENERATOR,
@@ -29,6 +33,16 @@ public class FantasyEleven {
 
     @OneToMany
     private List<FantasyApplication> fantasyApplications;
+
+    // constructors
+
+    public FantasyEleven(){}
+
+    public FantasyEleven(FantasyElevenBuilder builder){
+
+    }
+
+    // getters & setters
 
     public int getId() {
         return id;
@@ -60,5 +74,17 @@ public class FantasyEleven {
 
     public void setFantasyApplications(List<FantasyApplication> fantasyApplications) {
         this.fantasyApplications = fantasyApplications;
+    }
+
+    // builder
+
+    public static class FantasyElevenBuilder{
+
+        private int id;
+        private User user;
+        private Week week;
+        private List<FantasyApplication> fantasyApplications;
+
+        public FantasyElevenBuilder(){}
     }
 }

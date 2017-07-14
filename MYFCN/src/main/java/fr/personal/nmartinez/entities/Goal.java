@@ -10,7 +10,11 @@ import java.io.Serializable;
 @Entity
 public class Goal implements Serializable {
 
+    // constants
+
     public static final String GENERATOR = "GoalGenerator";
+
+    // fields
 
     @TableGenerator(
             name = Goal.GENERATOR,
@@ -35,6 +39,24 @@ public class Goal implements Serializable {
     private boolean isRightFoot;
     private boolean isLeftFoot;
     private boolean isOwnGoal;
+
+    // constructors
+
+    public Goal(){}
+
+    public Goal(GoalBuilder builder){
+        this.id = builder.id;
+        this.game = builder.game;
+        this.goalScorer = builder.goalScorer;
+        this.goalAssister = builder.goalAssister;
+        this.minute = builder.minute;
+        this.isHeader = builder.isHeader;
+        this.isRightFoot = builder.isRightFoot;
+        this.isLeftFoot = builder.isLeftFoot;
+        this.isOwnGoal = builder.isOwnGoal;
+    }
+
+    // getters & setters
 
     public int getId() {
         return id;
@@ -106,5 +128,71 @@ public class Goal implements Serializable {
 
     public void setOwnGoal(boolean ownGoal) {
         isOwnGoal = ownGoal;
+    }
+
+    // builder
+
+    public static class GoalBuilder{
+
+        private int id;
+        private Game game;
+        private Player goalScorer;
+        private Player goalAssister;
+        private int minute;
+        private boolean isHeader;
+        private boolean isRightFoot;
+        private boolean isLeftFoot;
+        private boolean isOwnGoal;
+
+        public GoalBuilder(){}
+
+        public GoalBuilder id(int id){
+            this.id = id;
+            return this;
+        }
+
+        public GoalBuilder game(Game game){
+            this.game = game;
+            return this;
+        }
+
+        public GoalBuilder goalScorer(Player goalScorer){
+            this.goalScorer = goalScorer;
+            return this;
+        }
+
+        public GoalBuilder goalAssister(Player goalAssister){
+            this.goalAssister = goalAssister;
+            return this;
+        }
+
+        public GoalBuilder minute(int minute){
+            this.minute = minute;
+            return this;
+        }
+
+        public GoalBuilder isHeader(boolean isHeader){
+            this.isHeader = isHeader;
+            return this;
+        }
+
+        public GoalBuilder isRightFoot(boolean isRightFoot){
+            this.isRightFoot = isRightFoot;
+            return this;
+        }
+
+        public GoalBuilder isLeftFoot(boolean isLeftFoot){
+            this.isLeftFoot = isLeftFoot;
+            return this;
+        }
+
+        public GoalBuilder isOwnGoal(boolean isOwnGoal){
+            this.isOwnGoal = isOwnGoal;
+            return this;
+        }
+
+        public Goal build(){
+            return new Goal(this);
+        }
     }
 }

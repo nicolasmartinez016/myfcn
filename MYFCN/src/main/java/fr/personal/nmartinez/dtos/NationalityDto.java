@@ -1,5 +1,7 @@
 package fr.personal.nmartinez.dtos;
 
+import fr.personal.nmartinez.entities.Nationality;
+
 import java.io.Serializable;
 
 /**
@@ -16,6 +18,12 @@ public class NationalityDto implements Serializable {
     private String flagPath;
 
     public NationalityDto(){}
+
+    public NationalityDto(Nationality nationality){
+        this.id = nationality.getId();
+        this.name = nationality.getName();
+        this.flagPath = nationality.getFlagPath();
+    }
 
     public int getId() {
         return id;

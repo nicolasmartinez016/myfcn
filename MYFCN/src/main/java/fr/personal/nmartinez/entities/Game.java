@@ -4,6 +4,7 @@ import fr.personal.nmartinez.dtos.GameDto;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,11 @@ import java.util.List;
 @Entity
 public class Game implements Serializable {
 
+    // constants
+
     public static final String GENERATOR = "GameGenerator";
+
+    // fields
 
     @TableGenerator(
             name = Game.GENERATOR,
@@ -42,11 +47,22 @@ public class Game implements Serializable {
     @OneToMany
     private List<RedCard> redCards;
 
+    // constructors
+
     public Game(){}
 
-    public Game(GameDto gameDto){
-
+    public Game(GameBuilder builder){
+        this.id = builder.id;
+        this.week = builder.week;
+        this.homeScore = builder.homeScore;
+        this.awayScore = builder.awayScore;
+        this.applications = builder.applications;
+        this.goals = builder.goals;
+        this.yellowCards = builder.yellowCards;
+        this.redCards = builder.redCards;
     }
+
+    // getters & setters
 
     public int getId() {
         return id;
@@ -110,5 +126,65 @@ public class Game implements Serializable {
 
     public void setRedCards(List<RedCard> redCards) {
         this.redCards = redCards;
+    }
+
+    // builder
+
+    public static class GameBuilder{
+
+        private int id;
+        private Week week;
+        private int homeScore;
+        private int awayScore;
+        private List<Application> applications;
+        private List<Goal> goals;
+        private List<YellowCard> yellowCards;
+        private List<RedCard> redCards;
+
+        public GameBuilder(){}
+
+        public GameBuilder id(int id){
+            this.id = id;
+            return this;
+        }
+
+        public GameBuilder week (Week week){
+            this.week = week;
+            return this;
+        }
+
+        public GameBuilder homeScore (int homeScore){
+            this.homeScore = homeScore;
+            return this;
+        }
+
+        public GameBuilder awayScore (int awayScore){
+            this.awayScore = awayScore;
+            return this;
+        }
+
+        public GameBuilder applications(List<Application> applications){
+            this.applications = applications;
+            return this;
+        }
+
+        public GameBuilder goals(List<Goal> goals){
+            this.goals = goals;
+            return this;
+        }
+
+        public GameBuilder yellowCards(List<YellowCard> yellowCards){
+            this.yellowCards = yellowCards;
+            return this;
+        }
+
+        public GameBuilder redCards(List<RedCard> redCards){
+            this.redCards = redCards;
+            return this;
+        }
+
+        public Game build(){
+            return new Game(this);
+        }
     }
 }

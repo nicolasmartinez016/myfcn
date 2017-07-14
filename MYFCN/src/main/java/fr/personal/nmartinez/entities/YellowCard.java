@@ -31,6 +31,15 @@ public class YellowCard implements Serializable {
 
     public YellowCard(){}
 
+    public YellowCard(YellowCardBuilder builder){
+        this.id = builder.id;
+        this.minute = builder.minute;
+        this.game = builder.game;
+        this.player = builder.player;
+    }
+
+    // getters & setters
+
     public int getId() {
         return id;
     }
@@ -61,5 +70,41 @@ public class YellowCard implements Serializable {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    // builder
+
+    public static class YellowCardBuilder{
+
+        private int id;
+        private int minute;
+        private Game game;
+        private Player player;
+
+        public YellowCardBuilder(){}
+
+        public YellowCardBuilder id(int id){
+            this.id = id;
+            return this;
+        }
+
+        public YellowCardBuilder minute(int minute){
+            this.minute = minute;
+            return this;
+        }
+
+        public YellowCardBuilder game(Game game){
+            this.game = game;
+            return this;
+        }
+
+        public YellowCardBuilder player(Player player){
+            this.player = player;
+            return this;
+        }
+
+        public YellowCard build(){
+            return new YellowCard(this);
+        }
     }
 }

@@ -6,6 +6,8 @@ import fr.personal.nmartinez.entities.Position;
 
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by marti on 14/07/2017.
@@ -32,6 +34,20 @@ public class FantasyApplicationDto implements Serializable {
         this.minuteEnd = fantasyApplication.getMinuteEnd();
         this.player = fantasyApplication.getPlayer();
         this.position = fantasyApplication.getPosition();
+    }
+
+    /**
+     * Creates a list of FantasyApplicationDto from a list of FantasyApplication
+     * @param fantasyApplications
+     * @return
+     */
+    public static List<FantasyApplicationDto> fromFantasyApplications(List<FantasyApplication> fantasyApplications){
+        List<FantasyApplicationDto> fantasyApplicationDtos = new ArrayList<FantasyApplicationDto>();
+        for (FantasyApplication fantasyApplication : fantasyApplications){
+            fantasyApplicationDtos.add(new FantasyApplicationDto(fantasyApplication));
+        }
+
+        return fantasyApplicationDtos;
     }
 
     public int getId() {

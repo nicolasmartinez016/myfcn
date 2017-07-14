@@ -32,6 +32,14 @@ public class Week implements Serializable {
 
     public Week(){}
 
+    public Week(WeekBuilder builder){
+        this.id = builder.id;
+        this.opponent = builder.opponent;
+        this.type = builder.type;
+        this.weekNumber = builder.weekNumber;
+        this.isHome = builder.isHome;
+    }
+
     public int getId() {
         return id;
     }
@@ -70,5 +78,45 @@ public class Week implements Serializable {
 
     public void setHome(boolean home) {
         isHome = home;
+    }
+
+    public static class WeekBuilder{
+
+        private int id;
+        private Team opponent;
+        private WeekType type;
+        private String weekNumber;
+        private boolean isHome;
+
+        public WeekBuilder(){}
+
+        public WeekBuilder id(int id){
+            this.id = id;
+            return this;
+        }
+
+        public WeekBuilder opponent(Team opponent){
+            this.opponent = opponent;
+            return this;
+        }
+
+        public WeekBuilder type(WeekType type){
+            this.type = type;
+            return this;
+        }
+
+        public WeekBuilder weekNumber(String weekNumber){
+            this.weekNumber = weekNumber;
+            return this;
+        }
+
+        public WeekBuilder isHome(boolean isHome){
+            this.isHome = isHome;
+            return this;
+        }
+
+        public Week build(){
+            return new Week(this);
+        }
     }
 }

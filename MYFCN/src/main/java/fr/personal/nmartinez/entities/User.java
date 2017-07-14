@@ -13,6 +13,8 @@ public class User implements Serializable {
 
     public static final String GENERATOR = "UserGenerator";
 
+    // fields
+
     @TableGenerator(
             name = User.GENERATOR,
             allocationSize = 1,
@@ -23,13 +25,23 @@ public class User implements Serializable {
     private int id;
 
     private String nickname;
-
     private String password;
 
     @OneToMany
     private List<FantasyEleven> fantasyElevens;
 
+    // constructors
+
     public User(){}
+
+    public User(UserBuilder builder){
+        this.id = builder.id;
+        this.nickname = builder.nickname;
+        this.password = builder.password;
+        this.fantasyElevens = builder.fantasyElevens;
+    }
+
+    // getters & setters
 
     public int getId() {
         return id;
@@ -62,4 +74,41 @@ public class User implements Serializable {
     public void setFantasyElevens(List<FantasyEleven> fantasyElevens) {
         this.fantasyElevens = fantasyElevens;
     }
+
+    // builder
+
+    public static class UserBuilder{
+
+        private int id;
+        private String nickname;
+        private String password;
+        private List<FantasyEleven> fantasyElevens;
+
+        public UserBuilder(){}
+
+        public UserBuilder id(int id){
+            this.id = id;
+            return this;
+        }
+
+        public UserBuilder nickname(String nickname){
+            this.nickname = nickname;
+            return this;
+        }
+
+        public UserBuilder password(String password){
+            this.password = password;
+            return this;
+        }
+
+        public UserBuilder fantasyElevens(List<FantasyEleven> fantasyElevens){
+            this.fantasyElevens = fantasyElevens;
+            return this;
+        }
+
+        public User build(){
+            return new User(this);
+        }
+    }
+
 }

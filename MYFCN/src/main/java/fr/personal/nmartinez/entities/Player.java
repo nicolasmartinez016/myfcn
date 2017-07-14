@@ -13,8 +13,11 @@ import java.util.List;
 @Entity
 public class Player implements Serializable {
 
+    // constants
 
     public static final String GENERATOR = "PlayerGenerator";
+
+    // fields
 
     @TableGenerator(
             name = Player.GENERATOR,
@@ -36,16 +39,20 @@ public class Player implements Serializable {
     @OneToMany
     private List<Application> applications;
 
+    // constructors
+
     public Player(){}
 
-    public Player(PlayerDto playerDto){
-        this.id = playerDto.getId();
-        this.firstName = playerDto.getFirstName();
-        this.lastName = playerDto.getLastName();
-        this.size = playerDto.getSize();
-        this.picturePath = playerDto.getPicturePath();
-        //this.applications = playerDto.getApplications();
+    public Player(PlayerBuilder builder){
+        this.id = builder.id;
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.size = builder.size;
+        this.picturePath = builder.picturePath;
+        this.applications = builder.applications;
     }
+
+    // getters & setters
 
     public int getId() {
         return id;
@@ -101,5 +108,59 @@ public class Player implements Serializable {
 
     public void setApplications(List<Application> applications) {
         this.applications = applications;
+    }
+
+    // builder
+
+    public static class PlayerBuilder{
+
+        private int id;
+        private String firstName;
+        private String lastName;
+        private int size;
+        private String picturePath;
+        private Nationality nationality;
+        private List<Application> applications;
+
+        public PlayerBuilder(){}
+
+        public PlayerBuilder id(int id){
+            this.id = id;
+            return this;
+        }
+
+        public PlayerBuilder firstName(String firstName){
+            this.firstName = firstName;
+            return this;
+        }
+
+        public PlayerBuilder lastName(String lastName){
+            this.lastName = lastName;
+            return this;
+        }
+
+        public PlayerBuilder size(int size){
+            this.size = size;
+            return this;
+        }
+
+        public PlayerBuilder picturePath(String picturePath){
+            this.picturePath = picturePath;
+            return this;
+        }
+
+        public PlayerBuilder nationality(Nationality nationality){
+            this.nationality = nationality;
+            return this;
+        }
+
+        public PlayerBuilder applications(List<Application> applications){
+            this.applications = applications;
+            return this;
+        }
+
+        public Player build(){
+            return new Player(this);
+        }
     }
 }

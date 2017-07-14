@@ -25,6 +25,7 @@ public class ApplicationDto {
     private int gameId;
     private int startMin;
     private int endMin;
+    private boolean isCaptain;
 
     public ApplicationDto(){}
 
@@ -34,6 +35,7 @@ public class ApplicationDto {
         this.gameId = application.getGame().getId();
         this.startMin = application.getStartMinute();
         this.endMin = application.getEndMinute();
+        this.isCaptain = application.isCaptain();
     }
 
     /**
@@ -87,5 +89,13 @@ public class ApplicationDto {
 
     public void setEndMin(int endMin) {
         this.endMin = endMin;
+    }
+
+    public boolean isCaptain() {
+        return isCaptain;
+    }
+
+    public void setCaptain(boolean captain) {
+        isCaptain = captain;
     }
 }

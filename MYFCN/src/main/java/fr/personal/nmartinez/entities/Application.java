@@ -32,6 +32,7 @@ public class Application implements Serializable {
 
     private int startMinute;
     private int endMinute;
+    private boolean isCaptain;
 
     // constructors
 
@@ -78,5 +79,13 @@ public class Application implements Serializable {
 
     public void setEndMinute(int endMinute) {
         this.endMinute = endMinute;
+    }
+
+    public boolean isCaptain() {
+        return isCaptain;
+    }
+
+    public void setCaptain(boolean captain) {
+        isCaptain = captain;
     }
 }
